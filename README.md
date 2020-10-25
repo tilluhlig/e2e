@@ -1,7 +1,9 @@
 Attention: This project is work in progress!!!
 
 # Description
-This is an Autosar 4.4.0 and Misra 2004 compatible implementation of an E2E-Lib, Protection Wrapper and State-Machine
+This is an almost exact Autosar 4.4.0 and Misra 2004 compatible implementation of an E2E-Lib, an E2E-Protection Wrapper and an E2E-State-Machine. The usage is provided for private purposes.
+
+The read and write functions are more generic than expected by the standard.
 
 # Profiles
 The currently supported profiles are:
