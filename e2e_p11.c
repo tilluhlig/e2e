@@ -274,13 +274,13 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
 
     if (config->dataIdMode == E2E_DATAID_BOTH)
     {
-        crc = update_crc_8(0xFF, config->dataID);
-        crc = update_crc_8(crc, config->dataID >> 8u & 0xFF);
+        crc = update_crc8_sae_j1850(0xFF, config->dataID);
+        crc = update_crc8_sae_j1850(crc, config->dataID >> 8u & 0xFF);
     }
     else if (config->dataIdMode == E2E_DATAID_NIBBLE)
     {
-        crc = update_crc_8(0xFF, config->dataID);
-        crc = update_crc_8(crc, 0u);
+        crc = update_crc8_sae_j1850(0xFF, config->dataID);
+        crc = update_crc8_sae_j1850(crc, 0u);
     }
     else
     {
@@ -291,14 +291,14 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
     {
         for (i = 0; i <= offset; i++)
         {
-            crc = update_crc_8(crc, data[i]);
+            crc = update_crc8_sae_j1850(crc, data[i]);
         }
 
         if (length > offset + 1u)
         {
             for (i = offset + 1; i < length; i++)
             {
-                crc = update_crc_8(crc, data[i]);
+                crc = update_crc8_sae_j1850(crc, data[i]);
             }
         }
     }
@@ -306,7 +306,7 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
     {
         for (i = 1; i < length; i++)
         {
-            crc = update_crc_8(crc, data[i]);
+            crc = update_crc8_sae_j1850(crc, data[i]);
         }
     }
 

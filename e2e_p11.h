@@ -13,7 +13,7 @@ extern "C"
 #endif
 
 #include "../include/types.h"
-#include "crc/checksum.h"
+#include "e2e_utils.h"
 #include "e2e_config.h"
 #include "e2e.h"
 
