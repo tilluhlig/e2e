@@ -98,7 +98,7 @@ e2e_error_state E2E_P11Check(const struct e2e_config *config,
     {
         result = E2E_E_INPUTERR_NULL;
     }
-    else if ((length != 0) && (data == NULL))
+    else if ((length != 0u) && (data == NULL))
     {
         result = E2E_E_INPUTERR_WRONG;
     }
@@ -107,7 +107,7 @@ e2e_error_state E2E_P11Check(const struct e2e_config *config,
         if (data != NULL)
         {
 
-            if (length == (config->dataLength / 8))
+            if (length == (config->dataLength / 8u))
             {
                 newDataAvailable = true;
             }
@@ -289,7 +289,7 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
 
     if (offset > 0u)
     {
-        for (i = 0; i <= offset; i++)
+        for (i = 0u; i <= offset; i++)
         {
             crc = update_crc8_sae_j1850(crc, data[i]);
         }
@@ -304,7 +304,7 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
     }
     else
     {
-        for (i = 1; i < length; i++)
+        for (i = 1u; i < length; i++)
         {
             crc = update_crc8_sae_j1850(crc, data[i]);
         }

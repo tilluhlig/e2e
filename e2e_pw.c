@@ -150,7 +150,7 @@ uint32_t E2EPW_Read(const struct e2e_config *config, e2e_checkState* state,
         }
 
         /* Deserialize Data */
-        bool validDeserialization = true; /* die Daten muessen nicht extra umgewandelt werden */
+        bool validDeserialization = true;
 
         if (validDeserialization == true)
         {
@@ -235,7 +235,7 @@ uint32_t E2EPW_Write(const struct e2e_config *config, e2e_protectState *state,
     e2e_error_state plausibilityChecks = E2E_E_OK;
     uint32_t ret = 0;
 
-    if (config == NULL || state == NULL || data == NULL)
+    if ((config == NULL) || (state == NULL) || (data == NULL))
     {
         plausibilityChecks = E2E_E_INPUTERR_NULL;
     }
