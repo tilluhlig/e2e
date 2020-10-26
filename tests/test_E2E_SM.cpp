@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../e2e.h"
+#include "e2e.h"
 
 #ifdef __cplusplus
 extern "C" {

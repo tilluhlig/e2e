@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../e2e_p11.h"
+#include "e2e.h"
 #include "testUtils.h"
 
 #ifdef __cplusplus
