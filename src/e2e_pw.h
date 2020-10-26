@@ -12,7 +12,8 @@ extern "C"
 {
 #endif
 
-#include "../include/types.h"
+#include "types.h"
+#include "rte.h"
 #include "e2e_config.h"
 #include "e2e_sm.h"
 #include "e2e.h"

@@ -12,7 +12,7 @@ extern "C"
 {
 #endif
 
-#include "../include/types.h"
+#include "types.h"
 
 struct e2e_config;
 
@@ -68,11 +68,6 @@ typedef enum
     E2E_DATAID_LOW = 2u,
     E2E_DATAID_NIBBLE = 3u,
 } e2e_dataIdMode;
-
-typedef enum
-{
-    RTE_E_OK = 0u, RTE_E_COM_STOPPED = 1u, RTE_E_SEG_FAULT = 2u,
-} rte_error_state;
 
 typedef struct
 {
