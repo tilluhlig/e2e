@@ -7,7 +7,7 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
  * @brief initializes a config with the given values
  *
  * @param config: Pointer to static configuration.
- * @param dataLength: the data length in bytes
+ * @param dataLength: the data length in bits (a multiple of 8)
  * @param dataIdMode: the data ID-Mode
  * @param dataIdNibbleOffset: data-ID-nibble offset in bits (is required if dataIdMode == E2E_DATAID_NIBBLE)
  * @param counterOffset: the counter offset in bits
@@ -82,7 +82,7 @@ e2e_error_state E2E_P11Init(const struct e2e_config *config,
  *
  * @param config: Pointer to static configuration.
  * @param state: Pointer to port/data communication state.
- * @param data: Pointer to received data.
+ * @param data: Pointer to received data. data == null represents no new data
  * @param length: Length of the data in bytes.
  * @return E2E_E_INPUTERR_NULL, E2E_E_OK, E2E_E_INPUTERR_WRONG.
  */
@@ -130,16 +130,16 @@ e2e_error_state E2E_P11Check(const struct e2e_config *config,
                 receivedNibble = 0u;
                 if (config->dataIdMode == E2E_DATAID_NIBBLE)
                 {
-                    receivedNibble = (data[config->dataIdNibbleOffset >> 3]
+                    receivedNibble = (data[config->dataIdNibbleOffset >> 3u]
                             >> (config->dataIdNibbleOffset & 0x7)) & 0x0F;
                 }
 
                 /* Read Counter */
-                receivedCounter = (data[config->counterOffset >> 3]
+                receivedCounter = (data[config->counterOffset >> 3u]
                         << (config->counterOffset & 0x7)) & 0xF;
 
                 /* Read CRC */
-                receivedCrc = data[config->crcOffset / 8];
+                receivedCrc = data[config->crcOffset / 8u];
 
                 /* Compute CRC */
                 computedCrc = E2E_P11Crc(config, data, length);
@@ -154,17 +154,16 @@ e2e_error_state E2E_P11Check(const struct e2e_config *config,
             {
                 state->status = E2E_STATUS_ERROR;
             }
-            else if (config->dataIdMode == E2E_DATAID_NIBBLE
+            else if ((config->dataIdMode == E2E_DATAID_NIBBLE)
                     && (receivedNibble != (config->dataID >> 8) & 0xFF))
             {
                 state->status = E2E_STATUS_ERROR;
             }
             else
             {
-                int deltaCounter = ((receivedCounter) & 0xE)
-                        - ((state->c_counter) & 0xE);
+                uint8_t deltaCounter = receivedCounter - (state->c_counter & 0xF);
 
-                if (deltaCounter > config->maxDeltaCounter || deltaCounter < 0)
+                if ((deltaCounter > config->maxDeltaCounter) || (deltaCounter < 0))
                 {
                     state->status = E2E_STATUS_WRONGSEQUENCE;
                 }
@@ -181,12 +180,12 @@ e2e_error_state E2E_P11Check(const struct e2e_config *config,
                     state->status = E2E_STATUS_OKSOMELOST;
                 }
 
-                state->c_counter = receivedCounter;
+                state->c_counter = (uint8_t) receivedCounter;
             }
         }
     }
 
-    return E2E_E_OK;
+    return result;
 }
 
 /*
@@ -274,12 +273,12 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
 
     if (config->dataIdMode == E2E_DATAID_BOTH)
     {
-        crc = update_crc8_sae_j1850(0xFF, config->dataID);
-        crc = update_crc8_sae_j1850(crc, config->dataID >> 8u & 0xFF);
+        crc = update_crc8_sae_j1850(0xFF, (uint8_t) config->dataID);
+        crc = update_crc8_sae_j1850(crc, (uint8_t) (config->dataID >> 8u) & 0xFF);
     }
     else if (config->dataIdMode == E2E_DATAID_NIBBLE)
     {
-        crc = update_crc8_sae_j1850(0xFF, config->dataID);
+        crc = update_crc8_sae_j1850(0xFF, (uint8_t) (config->dataID & 0xFF));
         crc = update_crc8_sae_j1850(crc, 0u);
     }
     else
@@ -294,9 +293,9 @@ uint8_t E2E_P11Crc(const struct e2e_config *config, const uint8_t *data,
             crc = update_crc8_sae_j1850(crc, data[i]);
         }
 
-        if (length > offset + 1u)
+        if (length > (offset + 1u))
         {
-            for (i = offset + 1; i < length; i++)
+            for (i = offset + 1u; i < length; i++)
             {
                 crc = update_crc8_sae_j1850(crc, data[i]);
             }
@@ -341,7 +340,7 @@ e2e_error_state E2E_P11Protect(const struct e2e_config *config,
     else
     {
         /* Write DataIDNibble */
-        if (config->dataIdMode == (uint32_t) E2E_DATAID_NIBBLE)
+        if (config->dataIdMode == E2E_DATAID_NIBBLE)
         {
             data[config->dataIdNibbleOffset >> 3] |= ((config->dataID & 0x0F00)
                     >> 8) << (config->dataIdNibbleOffset & 0x7);
