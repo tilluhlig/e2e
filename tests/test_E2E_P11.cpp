@@ -151,7 +151,7 @@ TEST(E2E_P11, E2E_P11Protect) {
 	memcpy(data, outTestDataA(), sizeof(testdata));
 	ret = E2E_P11Protect(&config, &protectState, testdata, 8);
 	EXPECT_EQ(ret, E2E_E_OK);
-	EXPECT_TRUE(0 == std::memcmp(data + 2, testdata + 2, 6));
+	EXPECT_TRUE(0 == memcmp(data + 2, testdata + 2, 6));
 	EXPECT_EQ(testdata[0], 93);
 	EXPECT_EQ(testdata[1], 0);
 	EXPECT_EQ(protectState.p_counter, 1);
