@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "../src/e2e.h"
 
-TEST(E2E, E2E_init) {
-	FAIL();
-}
-
 TEST(E2E, E2E_check) {
 	FAIL();
 }
