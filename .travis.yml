@@ -1,25 +1,20 @@
-sudo: false
+language: C++
+dist: bionic
 
-language:
-  - cpp
+compiler:
+  - gcc
+  - clang
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-
-before_install:
-  - pip install --user cpp-coveralls
+install:
+  - sudo apt-get install -y cmake ninja-build
+  - pip install conan
+  - conan profile new default --detect
+  - conan profile update settings.compiler.libcxx=libstdc++11 default
 
 script:
   - mkdir build
   - cd build
-  - cmake ..
-  - cmake --build .
+  - conan install .. --build=missing
+  - cmake .. -G Ninja
+  - ninja
   - ctest
-
-after_success:
-  - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*tests/.*.cpp.*"
-
-notifications:
-  email: false
