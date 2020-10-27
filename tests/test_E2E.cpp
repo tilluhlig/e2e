@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "e2e.h"
+#include "src/e2e.h"
 
 TEST(E2E, E2E_init) {
 	FAIL();
