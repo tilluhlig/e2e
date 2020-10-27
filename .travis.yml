@@ -8,7 +8,7 @@ compiler:
 install:
   - sudo apt-get install -y cmake ninja-build
   - pip install conan
-  - conan profile new default --detect
+  - conan profile new default --detect --force
   - conan profile update settings.compiler.libcxx=libstdc++11 default
 
 script:
@@ -17,4 +17,4 @@ script:
   - conan install .. --build=missing
   - cmake .. -G Ninja
   - ninja
-  - ctest
+  - ctest --progress
