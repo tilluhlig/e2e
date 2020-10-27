@@ -17,4 +17,4 @@ script:
   - conan install .. --build=missing
   - cmake .. -G Ninja
   - ninja
-  - ctest --extra-verbose --output-on-failure
+  - ctest --verbose
