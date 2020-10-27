@@ -1,20 +1,3 @@
-add_executable(
-    unit_tests
-    test_E2E.cpp
-    test_E2E_P11.cpp
-    test_E2E_PW.cpp
-    test_E2E_SM.cpp
-    )
-
-target_link_libraries(
-    unit_tests
-    gtest_main
-    e2e
-    )
-
-add_test(
-  NAME
-    unit
-  COMMAND
-    ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/unit_tests
-  )
+add_executable(testcase test_E2E.cpp test_E2E_P11.cpp test_E2E_PW.cpp test_E2E_SM.cpp $<TARGET_OBJECTS:e2e>)
+target_link_libraries(testcase CONAN_PKG::gtest)
+add_test(NAME testcase COMMAND $<TARGET_FILE:testcase>)
