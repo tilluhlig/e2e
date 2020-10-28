@@ -4,7 +4,10 @@ dist: bionic
 compiler:
   - gcc
   - clang
-
+  
+before_install:
+  - pip install --user cpp-coveralls
+  
 install:
   - sudo apt-get install -y cmake ninja-build
   - pip install conan
@@ -18,3 +21,6 @@ script:
   - cmake .. -G Ninja
   - ninja
   - ctest --verbose
+  
+after_success:
+  - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*tests/.*.cpp.*"
