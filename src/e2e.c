@@ -8,7 +8,7 @@
 #include "e2e.h"
 
 /*
- * @brief a generic check function that is internally used to call the profile specific
+ * @brief a generic check function that is internally used to call the specific profile
  * check function (most not be used)
  *
  * @param config: Pointer to static configuration.
@@ -33,7 +33,7 @@ e2e_error_state E2E_check(const struct e2e_config *config,
 }
 
 /*
- * @brief a generic check function that is internally used to call the profile specific
+ * @brief a generic check function that is internally used to call the specific profile
  * protect function (most not be used)
  *
  * @param config: Pointer to static configuration.
