@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/tilluhlig/e2e.svg?branch=main)](https://travis-ci.com/tilluhlig/e2e)
+[![Coverage Status](https://coveralls.io/repos/github/tilluhlig/e2e/badge.svg?branch=main)](https://coveralls.io/github/tilluhlig/e2e?branch=main)
 
 Attention: This project is work in progress!!!
 
