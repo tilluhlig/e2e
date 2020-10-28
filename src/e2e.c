@@ -9,7 +9,7 @@
 
 /*
  * @brief a generic check function that is internally used to call the specific profile
- * check function (most not be used)
+ * check function (must not be used)
  *
  * @param config: Pointer to static configuration.
  * @param smachineState: Pointer to port/data communication state.
@@ -25,7 +25,7 @@ e2e_error_state E2E_check(const struct e2e_config *config,
     e2e_error_state result = E2E_E_OK;
     e2e_profile_status profileStatus = E2E_P_OK;
 
-    result |= config->callback_check(config, checkstate, data, length);
+    config->callback_check(config, checkstate, data, length);
     profileStatus = config->callback_mapStatusToSM(result, checkstate->status);
     result = E2E_SMCheck(profileStatus, config, smachineState);
 
@@ -34,7 +34,7 @@ e2e_error_state E2E_check(const struct e2e_config *config,
 
 /*
  * @brief a generic check function that is internally used to call the specific profile
- * protect function (most not be used)
+ * protect function (must not be used)
  *
  * @param config: Pointer to static configuration.
  * @param protectstate: Pointer to port/data communication state.

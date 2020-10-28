@@ -145,21 +145,21 @@ TEST(E2E_P11, E2E_P11Protect) {
 	E2E_P11Config(&config, 64, E2E_DATAID_BOTH, 0, 8, 0, 0x129, 2);
 	E2E_P11ProtectInit(&protectState);
 
-	EXPECT_EQ(E2E_P11Protect(NULL, &protectState, testdata, 8), E2E_E_INPUTERR_NULL);
-	EXPECT_EQ(E2E_P11Protect(&config, NULL, testdata, 8), E2E_E_INPUTERR_NULL);
+	EXPECT_EQ(E2E_P11Protect(NULL, &protectState, getTestData(), 8), E2E_E_INPUTERR_NULL);
+	EXPECT_EQ(E2E_P11Protect(&config, NULL, getTestData(), 8), E2E_E_INPUTERR_NULL);
 
-	memcpy(data, outTestDataA(), sizeof(testdata));
-	ret = E2E_P11Protect(&config, &protectState, testdata, 8);
+	memcpy(data, outTestDataA(), 8);
+	ret = E2E_P11Protect(&config, &protectState, getTestData(), 8);
 	EXPECT_EQ(ret, E2E_E_OK);
-	EXPECT_TRUE(0 == memcmp(data + 2, testdata + 2, 6));
-	EXPECT_EQ(testdata[0], 93);
-	EXPECT_EQ(testdata[1], 0);
+	EXPECT_TRUE(0 == memcmp(data + 2, getTestData() + 2, 6));
+	EXPECT_EQ(getTestData()[0], 93);
+	EXPECT_EQ(getTestData()[1], 0);
 	EXPECT_EQ(protectState.p_counter, 1);
 
 	ret = E2E_P11Protect(&config, &protectState, outTestDataB(), 8);
 	EXPECT_EQ(ret, E2E_E_OK);
-	EXPECT_EQ(testdata[0], 203);
-	EXPECT_EQ(testdata[1], 1);
+	EXPECT_EQ(getTestData()[0], 203);
+	EXPECT_EQ(getTestData()[1], 1);
 	EXPECT_EQ(protectState.p_counter, 2);
 
 	E2E_P11Protect(&config, &protectState, outTestDataB(), 8);
@@ -179,8 +179,8 @@ TEST(E2E_P11, E2E_P11Protect) {
 
 	ret = E2E_P11Protect(&config, &protectState, outTestDataC(), 8);
 	EXPECT_EQ(ret, E2E_E_OK);
-	EXPECT_EQ(testdata[0], 0x4E);
-	EXPECT_EQ(testdata[1], 0);
+	EXPECT_EQ(getTestData()[0], 0x4E);
+	EXPECT_EQ(getTestData()[1], 0);
 	EXPECT_EQ(protectState.p_counter, 17);
 }
 
