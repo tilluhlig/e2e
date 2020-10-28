@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/tilluhlig/e2e.svg?branch=main)](https://travis-ci.com/tilluhlig/e2e)
+
 Attention: This project is work in progress!!!
 
 # Description
