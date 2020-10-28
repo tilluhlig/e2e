@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "../src/e2e.h"
+#include "testUtils.h"
 
 TEST(E2E_PW, E2EPW_Init) {
 	FAIL();
