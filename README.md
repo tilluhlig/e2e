@@ -24,6 +24,7 @@ struct e2e_config config;
 e2e_protectState var1_protectState;
 e2e_checkState var1_checkState;
 e2e_sm_state var1_smState;
+uint8_t data[8];
 
 rte_error_state var1_write(uint8_t *data, uint32_t length)
 {
@@ -40,5 +41,7 @@ void main(void)
 	E2E_P11Config(&config, 8, E2E_DATAID_BOTH, 0, 8, 0, 0x129, 2);
 	E2E_SMConfig(&config, 5, 3, 3, 3, 1, 1, 1);
 	E2EPW_Init(&config, &var1_checkState, &var1_protectState, &var1_smState, &var1_write, &var1_read);
+	
+	E2EPW_Write(&config, &var1_protectState, data, 8);
 }
 ```
